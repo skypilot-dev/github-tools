@@ -1,0 +1,10 @@
+{
+  "name": "@skypilot/github-tools",
+  "version": "0.0.0",
+  "description": "Tools for working with GitHub",
+  "main": "lib/index.js",
+  "repository": "https://github.com/skypilotcc/github-tools.git",
+  "author": "William Thorsen <william@thorsen.dev>",
+  "license": "ISC",
+  "private": false
+}
