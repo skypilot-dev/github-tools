@@ -37,7 +37,8 @@
     "utilities"
   ],
   "devDependencies": {
-    "@skypilot/toolchain": "^3.2.1"
+    "@skypilot/toolchain": "^3.2.1",
+    "@types/yaml": "^1.2.0"
   },
   "publishConfig": {
     "access": "restricted"
@@ -47,6 +48,7 @@
   ],
   "types": "lib/index.d.ts",
   "dependencies": {
-    "graphql-request": "^1.8.2"
+    "graphql-request": "^1.8.2",
+    "yaml": "^1.7.2"
   }
 }
