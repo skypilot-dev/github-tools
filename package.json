@@ -44,5 +44,8 @@
   "files": [
     "/lib"
   ],
-  "types": "lib/index.d.ts"
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "graphql-request": "^1.8.2"
+  }
 }
