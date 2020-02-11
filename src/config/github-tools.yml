@@ -1,1 +1,4 @@
-gitHubToken: ''
+gitHub:
+  graphQlEndpoint: 'https://api.github.com/graphql'
+  restEndpoint: ''
+  # token: ''  # Set the token in `local/github-tools.yml`
