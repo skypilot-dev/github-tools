@@ -1,16 +1,18 @@
-import path from 'path';
 import { GraphQLClient } from 'graphql-request';
-import { findPackageFileDir } from '@skypilot/sugarbowl';
-import { readYamlFile } from '../utils/readYamlFile';
+import { readOption } from '../config/readOption';
 
+const graphQlEndpoint = readOption<string>('gitHub.graphQlEndpoint');
+const gitHubToken = readOption<string>('gitHub.token');
 
-const pathToLocalConfig = path.resolve(findPackageFileDir(), 'local/github-tools.yml');
-const config = readYamlFile({ pathToFile: pathToLocalConfig });
+if (!graphQlEndpoint) {
+  throw new Error('No GraphQL endpoint is set in the options file: src/config/github-tools.yml');
+}
 
-const endpoint = 'https://api.github.com/graphql';
-const { gitHubToken } = config;
+if (!gitHubToken) {
+  throw new Error('No GitHub token is defined in the local options file: local/github-tools.yml');
+}
 
-export const graphQlClient = new GraphQLClient(endpoint, {
+export const graphQlClient = new GraphQLClient(graphQlEndpoint, {
   headers: {
     authorization: `bearer ${gitHubToken}`,
   },
