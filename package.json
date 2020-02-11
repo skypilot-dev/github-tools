@@ -39,6 +39,7 @@
   "devDependencies": {
     "@skypilot/common-types": "^1.0.5",
     "@skypilot/toolchain": "^3.2.1",
+    "@types/got": "^9.6.9",
     "@types/yaml": "^1.2.0"
   },
   "publishConfig": {
@@ -50,6 +51,7 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@skypilot/sugarbowl": "^1.5.0",
+    "got": "^10.5.5",
     "graphql-request": "^1.8.2",
     "yaml": "^1.7.2"
   }
