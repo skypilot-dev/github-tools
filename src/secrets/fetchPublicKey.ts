@@ -1,20 +1,25 @@
 import { readOption } from '../config/readOption';
 import { createRestClient } from '../fetch/restClient';
 
-export interface PublicKey {
+interface FetchPublicKeyOptions {
+  owner?: string;
+  repo?: string;
+}
+
+interface GitHubPublicKey {
   key: string;
   key_id: string;
 }
 
-const authorizationToken = readOption<string>('gitHub.token');
-const baseUrl = readOption<string>('gitHub.restEndpoint');
-const restClient = createRestClient({ baseUrl, authorizationToken });
+const restClient = createRestClient();
 
-const OWNER = 'skypilotcc';
-const REPO = 'toolchain';
+export async function fetchPublicKey(options: FetchPublicKeyOptions = {}): Promise<GitHubPublicKey> {
+  /* `repos/:owner/:repo/actions/secrets/public-key` */
+  const {
+    owner = readOption<string>('gitHub.owner'),
+    repo = readOption<string>('gitHub.repoName'),
+  } = options;
 
-export async function fetchPublicKey(): Promise<PublicKey> {
-  // /repos/:owner/:repo/actions/secrets/public-key
-  const endpoint = `repos/${OWNER}/${REPO}/actions/secrets/public-key`;
+  const endpoint = `repos/${owner}/${repo}/actions/secrets/public-key`;
   return restClient.get(endpoint);
 }
