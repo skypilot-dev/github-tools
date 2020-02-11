@@ -2,11 +2,12 @@ import { graphQlClient } from '../graphql/client';
 
 const query = `
   {
-    rates(currency: "USD") {
-      currency
+    viewer {
+      login
     }
   }
 `;
 
 graphQlClient.request(query)
-  .then(data => console.log('data:', data));
+  .then(data => console.log('data:', data))
+  .catch(e => console.error(e));
