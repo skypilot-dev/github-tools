@@ -16,8 +16,10 @@ const restClient = createRestClient();
 export async function fetchPublicKey(options: FetchPublicKeyOptions = {}): Promise<GitHubPublicKey> {
   /* `repos/:owner/:repo/actions/secrets/public-key` */
   const {
-    owner = readOption<string>('gitHub.owner'),
-    repo = readOption<string>('gitHub.repoName'),
+    owner = readOption<string>('gitHub.defaultOwner')
+      || readOption<string>('gitHub.owner'),
+    repo = readOption<string>('gitHub.defaultPublicRepoName')
+      || readOption<string>('gitHub.repoName'),
   } = options;
 
   const endpoint = `repos/${owner}/${repo}/actions/secrets/public-key`;
