@@ -10,7 +10,7 @@ interface ReadOptionsFileOptions {
 
 export function readOptionsFile<T = JsonObject>(options: ReadOptionsFileOptions = {}): T {
   const {
-    pathToFile = path.resolve(findPackageFileDir(), 'src/config/github-tools.yml'),
+    pathToFile = path.resolve(findPackageFileDir(), '.skypilot/github-tools.yml'),
   } = options;
   if (fs.existsSync(pathToFile)) {
     const fileContents = fs.readFileSync(pathToFile, { encoding: 'utf-8'} );

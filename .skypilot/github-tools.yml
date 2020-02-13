@@ -1,6 +1,7 @@
 gitHub:
   defaultOwner: 'skypilotcc'
-  defaultPublicRepoName: 'toolchain'
+  defaultPublicRepoName: 'github-tools'
+  owner: 'skypilotcc'
   graphQlEndpoint: 'https://api.github.com/graphql'
+  repoName: 'github-tools'
   restEndpoint: 'https://api.github.com'
-  # token: ''  # Set the token in `local/github-tools.yml`
