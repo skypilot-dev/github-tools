@@ -1,38 +1,33 @@
 import { JsonObject } from '@skypilot/common-types';
-import got from 'got';
-import { readOption } from '../config/readOption';
+import got, { Response } from 'got';
+import { readOption } from '..';
 
 interface RestClientCreateOptions {
   authorizationToken?: string;
-  endpoint?: string;
-  headers?: object;
   baseUrl?: string;
+  headers?: object;
 }
 
-interface RestClientPutOptions {
+interface RestClientPutOptions<T = JsonObject> {
   baseUrl?: string;
-  contentType?: string;
-  endpoint?: string;
+  jsonBody: T;
   headers?: object;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transformer?: <T>(data: any) => T;
+  url?: string;
 }
 
 class RestClient {
   private _authorizationToken = '';
-  private baseUrl: string;
-  private endpoint = '';
-  private headers = {};
+  private readonly baseUrl: string;
+  private readonly headers = {};
 
   constructor(options: RestClientCreateOptions) {
     const {
       authorizationToken = readOption<string>('gitHub.token'),
       baseUrl = '',
-      endpoint = '',
       headers = {},
     } = options;
     this.authorizationToken = authorizationToken;
-    this.endpoint = endpoint;
+    this.baseUrl = baseUrl;
     this.headers = {
       ...this.headers,
       headers,
@@ -52,37 +47,40 @@ class RestClient {
     }
   }
 
-  async get(endpoint: string): Promise<any> {
+  async get(endpoint: string): Promise<Response> {
 
     const gotOptions = {
-      context: {
-        token: this._authorizationToken,
-      },
+      // context: {
+      //   token: this._authorizationToken,
+      // },
       headers: {
-        'Authorization': `Bearer ${this._authorizationToken}`
+        'Authorization': `Bearer ${this._authorizationToken}`,
       },
       prefixUrl: this.baseUrl,
       url: endpoint,
     };
 
-    console.log('gotOptions:', gotOptions);
-
     const response = await got.get(gotOptions);
     return JSON.parse(response.body);
   }
 
-  async put(_jsonBody: JsonObject, options: RestClientPutOptions): Promise<any> {
+  async put<T>(options: RestClientPutOptions<T>): Promise<Response> {
     const {
       baseUrl = this.baseUrl,
-      endpoint = this.endpoint,
+      jsonBody = {},
+      url = '',
     } = options;
 
     const gotOptions = {
-      json: { hello: 'world' },
+      headers: {
+        'Authorization': `Bearer ${this._authorizationToken}`,
+      },
+      json: jsonBody,
       prefixUrl: baseUrl,
+      url,
     };
 
-    return got.put(endpoint, gotOptions);
+    return got.put(gotOptions);
   }
 }
 
@@ -98,6 +96,16 @@ export const gotClient = got.extend({
 });
 */
 
-export function createRestClient(options: RestClientCreateOptions) {
-  return new RestClient(options);
+export function createRestClient(options: RestClientCreateOptions = {}): RestClient {
+  const {
+    authorizationToken = readOption<string>('gitHub.token'),
+    baseUrl = readOption<string>('gitHub.restEndpoint'),
+  } = options;
+
+  const restClientOptions = {
+    ...options,
+    authorizationToken,
+    baseUrl,
+  };
+  return new RestClient(restClientOptions);
 }
