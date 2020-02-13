@@ -1,4 +1,4 @@
-import { readOption } from '../config/readOption';
+import { readOption } from '..';
 import { createRestClient } from '../fetch/restClient';
 
 interface FetchPublicKeyOptions {
