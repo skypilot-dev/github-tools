@@ -1,12 +1,13 @@
-import { readOption } from '..';
+import { JsonObject } from '@skypilot/common-types';
 import { createRestClient } from '../fetch/restClient';
+import { readOption } from '..';
 
 interface FetchPublicKeyOptions {
   owner?: string;
   repo?: string;
 }
 
-interface GitHubPublicKey {
+interface GitHubPublicKey extends JsonObject {
   key: string;
   key_id: string;
 }
@@ -23,5 +24,5 @@ export async function fetchPublicKey(options: FetchPublicKeyOptions = {}): Promi
   } = options;
 
   const endpoint = `repos/${owner}/${repo}/actions/secrets/public-key`;
-  return restClient.get(endpoint);
+  return restClient.get<GitHubPublicKey>(endpoint);
 }

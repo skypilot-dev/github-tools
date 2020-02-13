@@ -47,7 +47,7 @@ class RestClient {
     }
   }
 
-  async get(endpoint: string): Promise<Response> {
+  async get<T = JsonObject>(endpoint: string): Promise<T> {
 
     const gotOptions = {
       // context: {
