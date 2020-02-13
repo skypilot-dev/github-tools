@@ -26,7 +26,7 @@
     "prepublishOnly": "yarn run typecheck && yarn run lint --quiet && yarn test && yarn run build",
     "publish:default": "yarn publish --non-interactive",
     "tc": "yarn run typecheck",
-    "test": "jest",
+    "test": "jest --config jest.standalone.config.js",
     "typecheck": "tsc"
   },
   "keywords": [
@@ -37,7 +37,7 @@
   ],
   "devDependencies": {
     "@skypilot/common-types": "^1.0.5",
-    "@skypilot/toolchain": "^3.2.1",
+    "@skypilot/toolchain": "^3.3.1",
     "@types/got": "^9.6.9",
     "@types/js-nacl": "^1.2.0",
     "@types/lodash.get": "^4.4.6",

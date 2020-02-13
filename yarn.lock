@@ -1038,10 +1038,10 @@
   resolved "https://registry.yarnpkg.com/@skypilot/sugarbowl/-/sugarbowl-1.5.0.tgz#32f728aef22e4614ec6674e2f799107a22134557"
   integrity sha512-jnCIjF6CCy2tPRXtRurgPnqr8YcWHw6zKtb8imtbU+rF37knWAsk7nP9zcS+0coG1QvemjWetDzNXl6glNgI1g==
 
-"@skypilot/toolchain@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@skypilot/toolchain/-/toolchain-3.2.1.tgz#7c8b37de734c3252fd0b7af0f8ee5f487d205a37"
-  integrity sha512-lTfGu6lzy946OXng8u4rgHUCNNN3FKXTMu+z6lIMPvBt5gQBM2eOLlSpiUKKLvFFUPTJmufRhvUSKxSon4f4kw==
+"@skypilot/toolchain@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@skypilot/toolchain/-/toolchain-3.3.1.tgz#da8c4a66d859d4e784c21f87a5b98317b6897981"
+  integrity sha512-cvCxXmf8hF2Y6aPJusF8hrGAwmmsbl+iKJcQJm3GufU3kwr+4LMgYWAK8+MbaLcV+VFM5yInE5G9s5q99FPmsw==
   dependencies:
     "@babel/cli" "^7.8.4"
     "@babel/core" "^7.8.4"
