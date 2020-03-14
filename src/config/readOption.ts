@@ -6,7 +6,7 @@ import { readOptionsFile } from './readOptionsFile';
 export function readOption<T>(objectPath: string): T | '' {
   const options = readOptionsFile();
   const localOptions = readOptionsFile({
-    pathToFile: path.resolve(findPackageFileDir(), 'local/github-tools.yml'),
+    pathToFile: path.resolve(findPackageFileDir(), 'local/github-tools.yaml'),
   });
   const value = getOrDefault(
     localOptions,

@@ -20,7 +20,7 @@ $ npm add @skypilot/github-tools
 
 ## How to configure
 
-Add a `.skypilot/github-tools.yml` file to your project, replacing `OWNER` and `REPO_NAME` with the
+Add a `.skypilot/github-tools.yaml` file to your project, replacing `OWNER` and `REPO_NAME` with the
 names from the `OWNER/REPO_NAME` repository you want to work with.
 
 ```

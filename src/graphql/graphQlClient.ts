@@ -5,11 +5,11 @@ const graphQlEndpoint = readOption<string>('gitHub.graphQlEndpoint');
 const gitHubToken = readOption<string>('gitHub.token');
 
 if (!graphQlEndpoint) {
-  throw new Error('No GraphQL endpoint is set in the options file: src/config/github-tools.yml');
+  throw new Error('No GraphQL endpoint is set in the options file: src/config/github-tools.yaml');
 }
 
 if (!gitHubToken) {
-  throw new Error('No GitHub token is defined in the local options file: local/github-tools.yml');
+  throw new Error('No GitHub token is defined in the local options file: local/github-tools.yaml');
 }
 
 export const graphQlClient = new GraphQLClient(graphQlEndpoint, {
