@@ -4,7 +4,7 @@ import { utf8ToBase64 } from '../utf8ToBase64';
 
 describe('utf8ToBase64(:Uint8Array)', () => {
   it('should convert a Uint8Array to a base64-encoded string', () => {
-    const originalUtf8: Uint8Array = randomBytes(8);
+    const originalUtf8 = new Uint8Array(randomBytes(8));
 
     const base64: string = utf8ToBase64(originalUtf8);
 
@@ -13,6 +13,6 @@ describe('utf8ToBase64(:Uint8Array)', () => {
 
     /* Verify by converting back to utf8. */
     const utf8 = base64ToUtf8(base64);
-    expect(utf8).toEqual(originalUtf8);
+    expect(utf8).toStrictEqual(originalUtf8);
   });
 });

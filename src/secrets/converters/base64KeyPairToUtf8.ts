@@ -7,5 +7,5 @@ export function base64KeyPairToUtf8(base64KeyPair: Base64KeyPair): Utf8KeyPair {
   return {
     publicKey: base64ToUtf8(publicKey),
     secretKey: base64ToUtf8(secretKey),
-  }
+  };
 }

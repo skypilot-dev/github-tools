@@ -11,5 +11,5 @@ export function utf8KeyPairToBase64(utf8KeyPair: Utf8KeyPair): Base64KeyPair {
   return {
     publicKey: utf8ToBase64(publicKey),
     secretKey: utf8ToBase64(secretKey),
-  }
+  };
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Response } from 'got';
 import { readOption } from '../config/readOption';
 import { createRestClient } from '../fetch/restClient';

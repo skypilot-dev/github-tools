@@ -21,8 +21,9 @@ jobs:
       CI: true
       GPG_KEY: ${{ secrets.SPQR_BOT_GPG_KEY }}
       GPG_KEY_ID: ${{ secrets.SPQR_BOT_GPG_KEY_ID }}
-      NPM_READ_TOKEN: ${{ secrets.NPM_READ_AND_PUBLISH_TOKEN || secrets.NPM_READ_TOKEN }}
-      NPM_READ_AND_PUBLISH_TOKEN: ${{ secrets.NPM_READ_AND_PUBLISH_TOKEN }}
+      NPM_READ_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN || secrets.NPM_READ_AND_PUBLISH_TOKEN || secrets.NPM_READ_TOKEN }}
+      NPM_READ_AND_PUBLISH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN || secrets.NPM_READ_AND_PUBLISH_TOKEN }}
+      STABLE_RELEASE_BRANCH: 'main'
 
     runs-on: ubuntu-latest
 
@@ -40,7 +41,7 @@ jobs:
       - name: Fetch
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          git fetch --unshallow origin 'master:master'
+          git fetch --unshallow origin "$STABLE_RELEASE_BRANCH:$STABLE_RELEASE_BRANCH"
           git fetch origin $(git symbolic-ref --short HEAD)
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -50,7 +51,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_READ_TOKEN" > .npmrc
           yarn install --frozen-lockfile --production=false
-          yarn add @skypilot/quick-release conventional-changelog-cli@2 finepack@2 --production=false
+          yarn add @skypilot/quick-release --production=false
           git checkout -- .
       - name: Check types
         if: success()
@@ -70,19 +71,23 @@ jobs:
           if [[ $(yarn --silent spqr-option 'prerelease.check-code') == 'true' ]] ; then
             yarn test
           fi
-      - name: Build
-        if: success()
-        run: |
-          if [[ $(yarn --silent spqr-option 'prerelease.build') == 'true' ]] ; then
-            yarn build
-          fi
       - name: Gather published versions
         run: |
           mkdir -p local
           yarn info --silent . versions > local/published-versions.txt
       - name: Bump version
         if: success()
-        run: yarn --silent bump-version
+        run: |
+          yarn --silent bump-version
+          echo "VERSION=$(yarn --silent get-current-version)" >> $GITHUB_ENV
+          echo "VERSION_TAG=v$(yarn --silent get-current-version)" >> $GITHUB_ENV
+          echo "VERSION_STAGE=$(git symbolic-ref --short HEAD)" >> $GITHUB_ENV
+      - name: Build
+        if: success()
+        run: |
+          if [[ $(yarn --silent spqr-option 'prerelease.build') == 'true' ]] ; then
+            yarn run build
+          fi
       - name: Publish
         if: success()
         run: |
@@ -90,11 +95,20 @@ jobs:
             if test -z "$NPM_READ_AND_PUBLISH_TOKEN" ; then
               echo "No NPM_READ_AND_PUBLISH_TOKEN found. Skipping publication"
             else
-              if [[ $(yarn --silent is-published $(yarn --silent get-current-version)) == true ]]; then
-                echo "$(yarn --silent get-current-version) has already been published. Skipping publication."
+              if [[ $(yarn --silent is-published $VERSION) == true ]]; then
+                echo "$VERSION_TAG has already been published. Skipping publication."
               else
+                ACCESS=$(yarn --silent spqr-option prerelease.access)
                 yarn config set //registry.yarnpkg.com/:_authToken=$NPM_READ_AND_PUBLISH_TOKEN
-                yarn publish --access $(yarn --silent spqr-option prerelease.access) --non-interactive --tag $(git symbolic-ref --short HEAD)
+                yarn publish --access $ACCESS --non-interactive --tag $VERSION_STAGE
+
+                # If this stage is designated as the latest stage, tag it as 'latest' in NPM
+                # (typically used with alpha or beta prereleases prior to the publication of the first release)
+                LATEST_STAGE=$(yarn --silent spqr-option prerelease.latestStage)
+                if test -n $LATEST_STAGE && [[ $LATEST_STAGE == $VERSION_STAGE ]]; then
+                  # Yarn (as at v1.22.5) throws an error when adding a tag, but the operation does succeed
+                  yarn tag add "$(yarn info --silent . name)@$VERSION" latest || true
+                fi
               fi
             fi
           else
@@ -119,10 +133,10 @@ jobs:
       - name: Tag
         if: success()
         run: |
-          if [[ $(yarn --silent is-tagged $(yarn --silent get-current-version)) == true ]]; then
-            echo "$(yarn --silent get-current-version) has already been tagged. Skipping tagging."
+          if [[ $(yarn --silent is-tagged $VERSION) == true ]]; then
+            echo "$VERSION_TAG has already been tagged. Skipping tagging."
           else
-            git tag -a v$(yarn --silent get-current-version) -m "Prerelease $(yarn --silent get-current-version)"
+            git tag -a $VERSION_TAG -m "Prerelease $VERSION"
           fi
       - name: Push tag
         if: success()

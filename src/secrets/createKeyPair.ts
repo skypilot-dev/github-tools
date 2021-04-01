@@ -14,6 +14,8 @@ const instantiate = util.promisify(NaclFactory.instantiate);
 
 export async function createKeyPair(): Promise<Utf8KeyPair> {
   return new Promise(resolve => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     instantiate(nacl => {
       const keyPair: BoxKeyPair = nacl.crypto_box_keypair();
       resolve({
@@ -21,5 +23,5 @@ export async function createKeyPair(): Promise<Utf8KeyPair> {
         secretKey: keyPair.boxSk,
       });
     });
-  })
+  });
 }
