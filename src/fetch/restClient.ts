@@ -1,17 +1,21 @@
-import { JsonObject } from '@skypilot/common-types';
 import got, { Response } from 'got';
+
+import { JsonMap } from 'src/lib/types';
+
 import { readOption } from '..';
+
+type Headers = Record<string, string | string[]>
 
 interface RestClientCreateOptions {
   authorizationToken?: string;
   baseUrl?: string;
-  headers?: object;
+  headers?: Headers;
 }
 
-interface RestClientPutOptions<T = JsonObject> {
+interface RestClientPutOptions<T = JsonMap> {
   baseUrl?: string;
   jsonBody: T;
-  headers?: object;
+  headers?: Headers;
   url?: string;
 }
 
@@ -47,7 +51,7 @@ class RestClient {
     }
   }
 
-  async get<T = JsonObject>(endpoint: string): Promise<T> {
+  async get<T = JsonMap>(endpoint: string): Promise<T> {
 
     const gotOptions = {
       // context: {

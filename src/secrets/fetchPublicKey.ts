@@ -1,4 +1,4 @@
-import { JsonObject } from '@skypilot/common-types';
+import { JsonMap } from '@skypilot/common-types';
 import { createRestClient } from '../fetch/restClient';
 import { readOption } from '..';
 
@@ -7,7 +7,7 @@ interface FetchPublicKeyOptions {
   repo?: string;
 }
 
-interface GitHubPublicKey extends JsonObject {
+interface GitHubPublicKey extends JsonMap {
   key: string;
   key_id: string;
 }
