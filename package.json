@@ -27,6 +27,8 @@
     "publish:default": "yarn publish --non-interactive",
     "tc": "yarn run typecheck",
     "test": "jest --config jest.standalone.config.js",
+    "test:all": "jest --config jest.config.js",
+    "test:int": "jest --config jest.integration.config.js",
     "typecheck": "tsc"
   },
   "keywords": [
