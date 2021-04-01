@@ -13,7 +13,7 @@ export function readOptionsFile<T = JsonObject>(options: ReadOptionsFileOptions 
     pathToFile = path.resolve(findPackageFileDir(), '.skypilot/github-tools.yaml'),
   } = options;
   if (fs.existsSync(pathToFile)) {
-    const fileContents = fs.readFileSync(pathToFile, { encoding: 'utf-8'} );
+    const fileContents = fs.readFileSync(pathToFile, { encoding: 'utf-8' } );
     return yaml.parse(fileContents);
   }
   return {} as T;

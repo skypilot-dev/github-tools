@@ -21,5 +21,5 @@ export async function createKeyPair(): Promise<Utf8KeyPair> {
         secretKey: keyPair.boxSk,
       });
     });
-  })
+  });
 }
