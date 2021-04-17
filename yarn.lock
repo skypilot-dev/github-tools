@@ -1338,20 +1338,20 @@
   dependencies:
     babel-plugin-root-import "^6.6.0"
 
-"@skypilot/common-types@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@skypilot/common-types/-/common-types-2.2.2.tgz#455b2df16a4692e069ce763831750e7db804e33f"
-  integrity sha512-CsQukjSe/73P4H0GRvubP4EHB1Pnhse2NlJcsUVqvw34vky7zMY2779ryXh4d/X8ZzPAlP73nqpl8dd96FKS0w==
+"@skypilot/common-types@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@skypilot/common-types/-/common-types-2.3.0.tgz#d816b5b049e7ebf372138860299bb4e8dcfbf7de"
+  integrity sha512-rfuu3RZRcCEWk1PE4NnvrCAuOIrCvoK6AvbotuPcEQ2m2QbXN4OuE0/5J3FtwakVM7SsNabvWsletN6/oqkM7Q==
 
 "@skypilot/eslint-config-typescript@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@skypilot/eslint-config-typescript/-/eslint-config-typescript-1.7.0.tgz#66c1996fa8a1083e6895dac347322e8e40ac0102"
   integrity sha512-IKY2XjOyErasndv5+BoE3lMnXXXeAjF/GUL7C/gFhO7QEuOcUpsVoLENVgGZ0wmHmgeYsLejeUboqWWszFMUpg==
 
-"@skypilot/sugarbowl@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@skypilot/sugarbowl/-/sugarbowl-3.3.0.tgz#e0c9840915cb3c4a0575c88b1b01a2522308e8fa"
-  integrity sha512-8StQutrqxyG8SQWpu9rRu/jOSgRA8lBst6WbAyR/iZbO7pU9ete1bpWcvWKwB5Y8JibLDN7tB4KrKroKZ4fYyg==
+"@skypilot/sugarbowl@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@skypilot/sugarbowl/-/sugarbowl-3.4.0.tgz#2f6d047e785cae63e8388e6b129f548c739c41ae"
+  integrity sha512-NyxDYzB/sx84FRsH0mbAEDtosgCwv7NJmGVPMsuGrVZpcsnH5hrCR0fIwguz5hrMg+CcmfO4KxZYmP1omsGzOA==
   dependencies:
     json-beautify "^1.1.1"
 
